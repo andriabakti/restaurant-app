@@ -9,52 +9,54 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String   @db.String
-  email     String   @unique @db.String
-  password  String   @unique @db.String
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp
+  id        String   @id @unique @default(uuid())
+  name      String   @db.VarChar(30)
+  email     String   @unique @db.VarChar(30)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(3)
   order     Order[]
 
   @@map("users")
 }
 
 model Food {
-  id        String      @id @default(auto()) @map("_id") @db.ObjectId
-  name      String      @db.String
+  id        String      @id @default(uuid())
+  name      String      @db.VarChar(30)
   price     Int         @db.Int
-  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime    @updatedAt @map("updated_at") @db.Timestamp
+  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime    @updatedAt @map("updated_at") @db.Timestamp(3)
   orderItem OrderItem[]
 
   @@map("foods")
 }
 
 model Order {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  status     String      @db.String
-  userId     String      @map("user_id") @db.ObjectId
+  id         String      @id @default(uuid())
+  status     String      @db.VarChar(30)
+  userId     String      @map("user_id")
   user       User?       @relation(fields: [userId], references: [id])
-  createdAt  DateTime    @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime    @updatedAt @map("updated_at") @db.Timestamp
+  createdAt  DateTime    @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt  DateTime    @updatedAt @map("updated_at") @db.Timestamp(3)
   orderItems OrderItem[]
 
   @@map("orders")
 }
 
 model OrderItem {
-  id       String @id @default(auto()) @map("_id") @db.ObjectId
-  orderId  String @map("order_id") @db.ObjectId
-  order    Order? @relation(fields: [orderId], references: [id])
-  foodId   String @map("food_id") @db.ObjectId
-  food     Food?  @relation(fields: [foodId], references: [id])
-  quantity Int    @db.Int
+  id        String   @id @default(uuid())
+  orderId   String   @map("order_id")
+  order     Order?   @relation(fields: [orderId], references: [id])
+  foodId    String   @map("food_id")
+  food      Food?    @relation(fields: [foodId], references: [id])
+  quantity  Int      @db.Int
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(3)
 
   @@map("order-items")
 }

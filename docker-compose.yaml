@@ -1,11 +1,13 @@
 version: "3"
 
 services:
-  mongo:
-    container_name: restaurant-mongo
-    image: mongo:latest
+  mysql:
+    container_name: restaurant-mysql
+    image: mysql:latest
+    restart: always
+    env_file: ./apps/order-service/.env
     ports:
-      - "27017:27017"
+      - "3306:3306"
     networks:
       - restaurant-app
 
