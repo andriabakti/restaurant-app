@@ -1,0 +1,13 @@
+{
+  "name": "restaurant-app",
+  "version": "1.0.0",
+  "description": "Restaurant App with Microservice",
+  "scripts": {
+    "dev:order": "npm run --prefix ./apps/order-service start:dev",
+    "dev:kitchen": "npm run --prefix ./apps/kitchen-service start:dev",
+    "dev:notif": "npm run --prefix ./apps/notif-service start:dev"
+  },
+  "keywords": [],
+  "author": "Andria Bakti Mahendra",
+  "license": "ISC"
+}

@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: restaurant-mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - restaurant-app
+
+  rabbitmq:
+    container_name: restaurant-rabbitmq
+    image: rabbitmq:3.8
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - restaurant-app
+
+networks:
+  restaurant-app:
