@@ -20,5 +20,53 @@ services:
     networks:
       - restaurant-app
 
+  order-service:
+    build:
+      context: ./apps/order-service
+    container_name: restaurant-order-service
+    ports:
+      - 3939:3939
+    depends_on:
+      - mysql
+      - rabbitmq
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npx prisma generate
+        npx prisma migrate deploy
+        npm run start:prod
+    networks:
+      - restaurant-app
+
+  notif-service:
+    build:
+      context: ./apps/notif-service
+    container_name: restaurant-notif-service
+    ports:
+      - 3838:3838
+    depends_on:
+      - order-service
+    command: ["npm", "run", "start:prod"]
+    networks:
+      - restaurant-app
+
+  kitchen-service:
+    build:
+      context: ./apps/kitchen-service
+    container_name: restaurant-kitchen-service
+    ports:
+      - 3737:3737
+    depends_on:
+      - order-service
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npx prisma generate
+        npm run start:prod
+    networks:
+      - restaurant-app
+
 networks:
   restaurant-app:
