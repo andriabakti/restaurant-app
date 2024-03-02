@@ -16,11 +16,12 @@ If it's not installed yet, you can download it based on your device OS: <b>[Here
 
 ### 2. Clone the Repo
 
-Open terminal on your device, clone this repository to your device using <b>[Git](https://git-scm.com/downloads)</b>, after that enter the project directory using the following command:
+Open terminal on your device, clone this repository to your device using <b>[Git](https://git-scm.com/downloads)</b>, after that enter the project directory than open project with <b>[Visual Studio Code](https://code.visualstudio.com/download)</b> using the following command:
 
 ```sh
 git clone https://github.com/andriabakti/restaurant-app.git
 cd ./restaurant-app
+code .
 ```
 
 ### 3. Setup Environment for Order Service
@@ -51,14 +52,22 @@ Create <b>.env</b> file on <b>[Notif Service Directory's Root](./apps/notif-serv
 
 ```sh
 # Base
-BASE_PORT="3838"
+BASE_PORT=3838
+# MySQL
+MYSQL_ROOT_PASSWORD="root"
+MYSQL_PASSWORD="root"
+MYSQL_HOST="mysql"
+MYSQL_PORT=3306
+MYSQL_DATABASE="restaurant_app"
+# Prisma
+DATABASE_URL="mysql://${MYSQL_ROOT_PASSWORD}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
 # RabbitMQ
-RMQ_URL="amqp://rabbitmq:5672"
+RMQ_URL=amqp://rabbitmq:5672
 # Mailer
-MAIL_HOST="smtp.gmail.com"
-MAIL_PORT="587"
-MAIL_USERNAME="andriabaktimahendra@gmail.com"
-MAIL_PASSWORD="gpqqaxiykfpwgmjc"
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=andriabaktimahendra@gmail.com
+MAIL_PASSWORD=gpqqaxiykfpwgmjc
 ```
 
 ### 5. Setup Environment for Kitchen Service
