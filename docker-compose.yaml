@@ -1,22 +1,17 @@
 version: "3"
 
 services:
+  rabbitmq:
+    container_name: restaurant-rabbitmq
+    image: rabbitmq:3.8
+    networks:
+      - restaurant-app
+
   mysql:
     container_name: restaurant-mysql
     image: mysql:latest
     restart: always
     env_file: ./apps/order-service/.env
-    ports:
-      - "3306:3306"
-    networks:
-      - restaurant-app
-
-  rabbitmq:
-    container_name: restaurant-rabbitmq
-    image: rabbitmq:3.8
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     networks:
       - restaurant-app
 
@@ -24,16 +19,16 @@ services:
     build:
       context: ./apps/order-service
     container_name: restaurant-order-service
+    restart: always
     ports:
       - 3939:3939
     depends_on:
-      - mysql
       - rabbitmq
+      - mysql
     command:
       - /bin/sh
       - -c
       - |
-        npx prisma generate
         npx prisma migrate deploy
         npm run start:prod
     networks:
@@ -42,6 +37,7 @@ services:
   notif-service:
     build:
       context: ./apps/notif-service
+    restart: always
     container_name: restaurant-notif-service
     depends_on:
       - order-service
@@ -52,6 +48,7 @@ services:
   kitchen-service:
     build:
       context: ./apps/kitchen-service
+    restart: always
     container_name: restaurant-kitchen-service
     depends_on:
       - order-service
