@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "b2bac0db-f3e9-4b38-b6bc-dca368dda081",
+		"name": "Restaurant App",
+		"description": "Simple API documentation for simple Restaurant App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12273027"
+	},
+	"item": [
+		{
+			"name": "Foods",
+			"item": [
+				{
+					"name": "Food Menu",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/foods/menu",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"foods",
+								"menu"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This section is related to food module"
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Order Creation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json()\r",
+									"pm.environment.set(\"ORDER_ID\", res.result.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"foodId\": \"9793c708-6ff9-4e5a-861d-5708f28c264f\",\r\n            \"quantity\": 5\r\n        },\r\n        {\r\n            \"foodId\": \"dc51ea64-522b-4c60-868b-0cd699335947\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/orders/create",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Check Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/orders/:id/check-status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"orders",
+								":id",
+								"check-status"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{ORDER_ID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This section is related to order module"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json()\r",
+									"pm.environment.set(\"ACCESS_TOKEN\", res.result.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Aki Rosenthal\",\r\n    \"password\": \"aki123\",\r\n    \"email\": \"aki.rose@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/sign-up",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"sign-up"
+							]
+						},
+						"description": "This endpoint is used for create new user"
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json()\r",
+									"pm.environment.set(\"ACCESS_TOKEN\", res.result.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"aki.rose@gmail.com\",\r\n    \"password\": \"aki123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/sign-in",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"sign-in"
+							]
+						},
+						"description": "This endpoint is used for user login to get access token as authorization"
+					},
+					"response": []
+				}
+			],
+			"description": "This section is related to user module"
+		}
+	]
+}

@@ -43,8 +43,6 @@ services:
     build:
       context: ./apps/notif-service
     container_name: restaurant-notif-service
-    ports:
-      - 3838:3838
     depends_on:
       - order-service
     command: ["npm", "run", "start:prod"]
@@ -55,8 +53,6 @@ services:
     build:
       context: ./apps/kitchen-service
     container_name: restaurant-kitchen-service
-    ports:
-      - 3737:3737
     depends_on:
       - order-service
     command:
