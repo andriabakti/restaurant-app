@@ -1,5 +1,5 @@
 import { UserData } from '@/commons/decorators/user-data.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { OrderCreationDto } from './dto/order-creation.dto';
 import { OrderService } from './order.service';
 
@@ -13,5 +13,10 @@ export class OrderController {
     @Body() payload: OrderCreationDto,
   ) {
     return await this.orderSvc.create(userData.email, payload);
+  }
+
+  @Get(':id/check-status')
+  public async checkOrderStatus(@Param('id') orderId: string) {
+    return await this.orderSvc.checkStatus(orderId);
   }
 }

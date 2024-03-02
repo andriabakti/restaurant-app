@@ -33,7 +33,7 @@ export class OrderService {
     }
 
     await this.queueSvc.publish('ORDER_EXCHANGE', {
-      orderId: newOrder.status,
+      orderId: newOrder.id,
       userEmail: userEmail,
     });
     return newOrder;
