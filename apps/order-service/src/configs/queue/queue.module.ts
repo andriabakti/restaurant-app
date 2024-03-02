@@ -1,5 +1,6 @@
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
 import { Module } from '@nestjs/common';
+import { QueueService } from './queue.service';
 
 @Module({
   imports: [
@@ -15,17 +16,19 @@ import { Module } from '@nestjs/common';
         {
           name: 'order.confirmation',
           options: {
-            durable: false,
+            durable: true,
           },
         },
         {
           name: 'order.process',
           options: {
-            durable: false,
+            durable: true,
           },
         },
       ],
     }),
   ],
+  providers: [QueueService],
+  exports: [QueueService],
 })
 export class QueueModule {}

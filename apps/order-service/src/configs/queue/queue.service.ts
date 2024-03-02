@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class QueueService {
   constructor(private readonly amqpConnection: AmqpConnection) {}
 
-  public async publish(exchange: string, payload: any): Promise<void> {
-    await this.amqpConnection.publish(exchange, '', payload);
+  public async publish(exchange: string, payload: any): Promise<boolean> {
+    return await this.amqpConnection.publish(exchange, '', payload);
   }
 }
