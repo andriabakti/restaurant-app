@@ -77,7 +77,7 @@ MYSQL_DATABASE="restaurant_app"
 # Prisma
 DATABASE_URL="mysql://${MYSQL_ROOT_PASSWORD}:${MYSQL_PASSWORD}@${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}"
 # RabbitMQ
-RMQ_URL="amqp://localhost:5672"
+RMQ_URL="amqp://rabbitmq:5672"
 ```
 
 ### 6. Run `docker compose`
