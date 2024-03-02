@@ -31,9 +31,9 @@ export class AppService {
 
     const itemList = result.map((el: any) => {
       return {
-        name: el.food.name,
-        price: el.food.price,
-        quantity: el.quantity,
+        foodName: el.food.name,
+        basePrice: this.toCurrency(el.food.price),
+        qty: el.quantity,
         subTotal: el.food.price * el.quantity,
       };
     });
@@ -45,11 +45,18 @@ export class AppService {
       to: msg.userEmail,
       subject: 'Order Confirmation',
       template: 'order-confirmation.html',
-      context: { itemList, total },
+      context: { itemList, totalAmount: this.toCurrency(total) },
     };
     await this.mailerSvc
       .sendMail(emailData)
       .catch((err: any) => console.log(err, '< err sent email'));
     return;
+  }
+
+  private toCurrency(amount: number) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(amount);
   }
 }

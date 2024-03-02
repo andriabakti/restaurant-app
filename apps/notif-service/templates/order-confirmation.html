@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>Order Confirmation</title>
+
+  <style>
+    .header>h2 {
+      margin: 0;
+    }
+
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: #E2E2E2;
+      margin: 12px 0;
+    }
+
+    .list>h4 {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="header">
+      <h2>Order Details</h2>
+      <p>Berikut adalah rincian terkait pesanan Anda</p>
+    </div>
+    <div class="line"></div>
+    <div>
+      {{#each itemList }}
+      <div class="list">
+        <h4>Food: {{this.foodName}}</h4>
+        <h4>Price: {{this.basePrice}}</h4>
+        <h4>Quantity: {{this.qty}}</h4>
+        <div class="line"></div>
+      </div>
+      {{/each}}
+      <h4>Total Amount: {{totalAmount}}</h4>
+    </div>
+  </div>
+</body>
+
+</html>
