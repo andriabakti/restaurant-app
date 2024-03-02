@@ -52,12 +52,7 @@ services:
     container_name: restaurant-kitchen-service
     depends_on:
       - order-service
-    command:
-      - /bin/sh
-      - -c
-      - |
-        npx prisma generate
-        npm run start:prod
+    command: ["npm", "run", "start:prod"]
     networks:
       - restaurant-app
 
