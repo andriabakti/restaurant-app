@@ -19,7 +19,7 @@ If it's not installed yet, you can download it based on your device OS: <b>[Here
 Open terminal on your device, clone this repository to your device using <b>[Git](https://git-scm.com/downloads)</b>, after that enter the project directory using the following command:
 
 ```sh
-git clone https://github.com/andriabakti/restaurant-app
+git clone https://github.com/andriabakti/restaurant-app.git
 cd ./restaurant-app
 ```
 
@@ -88,6 +88,6 @@ Run <b>[docker compose](./docker-compose.yaml)</b> by the following command on t
 docker compose up -d
 ```
 
-### 7. Open the App
+### 7. Try the APIs
 
 After <b>docker compose</b> finished, you can try all the <b>[APIs](./restaurant_app.postman_collection)</b> by <b>[Postman](https://www.postman.com/downloads/)</b>
