@@ -13,6 +13,6 @@ export class AppService {
     queue: 'order.confirmation',
   })
   public async sendConfirmEmail(msg: { userEmail: string }) {
-    // console.log(msg, '< here');
+    // send email here
   }
 }

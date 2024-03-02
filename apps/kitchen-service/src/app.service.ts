@@ -5,6 +5,7 @@ import { DatabaseService } from './configs/database/database.service';
 @Injectable()
 export class AppService {
   constructor(private readonly db: DatabaseService) {}
+
   getHello(): string {
     return 'Hello World!';
   }
@@ -15,7 +16,7 @@ export class AppService {
     queue: 'order.process',
   })
   public async updateOrderStatus(msg: { orderId: string }) {
-    return await this.db.order.update({
+    await this.db.order.update({
       where: {
         id: msg.orderId,
       },
@@ -26,5 +27,7 @@ export class AppService {
         status: true,
       },
     });
+
+    return;
   }
 }
