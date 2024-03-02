@@ -12,7 +12,7 @@ export class AppService {
     routingKey: '',
     queue: 'order.confirmation',
   })
-  public async sendConfirmEmail(msg: any) {
+  public async sendConfirmEmail(msg: { userEmail: string }) {
     // console.log(msg, '< here');
   }
 }
