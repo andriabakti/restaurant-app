@@ -1,16 +1,18 @@
 import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MailerModule } from '@nestjs-modules/mailer';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { DatabaseModule } from './configs/database/database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    DatabaseModule,
     RabbitMQModule.forRoot(RabbitMQModule, {
       uri: process.env.RMQ_URL,
       queues: [
@@ -37,7 +39,7 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
       },
       template: {
         dir: __dirname + '/../templates',
-        adapter: new PugAdapter(),
+        adapter: new HandlebarsAdapter(),
         options: {
           strict: true,
         },
